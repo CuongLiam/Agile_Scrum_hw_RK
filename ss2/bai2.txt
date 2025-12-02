@@ -1,0 +1,11 @@
+Nội dung User Story:
+
+"Là một khách hàng, tôi muốn thanh toán đơn hàng bằng thẻ tín dụng hoặc ví điện tử, để tôi có thể lựa chọn phương thức chi trả linh hoạt và hoàn tất giao dịch nhanh chóng."
+
+Phân tích cấu trúc (Theo yêu cầu):
+
+Role (Vai trò): Khách hàng (Người mua hàng).
+
+Goal (Mục tiêu): Thanh toán đơn hàng qua các phương thức khác nhau (thẻ tín dụng, ví điện tử).
+
+Benefit (Lợi ích): Có sự linh hoạt và tiện lợi trong việc chi trả (người dùng không bị bó buộc vào một cách trả tiền duy nhất).

@@ -1,0 +1,9 @@
+"Là một khách hàng, tôi muốn thêm sản phẩm vào giỏ hàng, để tôi có thể tiếp tục mua sắm và thanh toán tất cả các món đồ trong cùng một lần."
+
+Phân tích cấu trúc (Theo yêu cầu):
+
+Role (Vai trò): Khách hàng (Người đang mua sắm trên ứng dụng).
+
+Goal (Mục tiêu): Thêm sản phẩm vào giỏ hàng (Lưu tạm sản phẩm lại).
+
+Benefit (Lợi ích): Có thể mua nhiều món cùng lúc (Giúp tiết kiệm thời gian đặt lệnh và có thể tiết kiệm chi phí vận chuyển).
