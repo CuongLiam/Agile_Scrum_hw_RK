@@ -1,0 +1,26 @@
+Bài làm: Ước lượng User Story "Thanh toán đơn hàng"
+1. User Story
+
+"Là một khách hàng, tôi muốn thanh toán đơn hàng thông qua thẻ tín dụng hoặc ví điện tử để hoàn tất quá trình mua sắm."
+
+2. Ước lượng Story Points
+
+13 Points (Mức độ phức tạp cao/Rất cao) (Trong thang Fibonacci: 1, 2, 3, 5, 8, 13, 21...)
+
+3. Lý do giải thích (Justification) Tôi chọn con số 13 (cao hơn nhiều so với 5 điểm của bài trước) vì những lý do sau:
+
+Tích hợp bên thứ 3 (External Integration): Đây không chỉ là code nội bộ. Hệ thống phải kết nối API với cổng thanh toán (như Stripe, PayPal, VNPay, Momo...). Việc phụ thuộc vào bên ngoài luôn tiềm ẩn rủi ro kỹ thuật và tốn thời gian debug (kiểm thử).
+
+Xử lý nhiều kịch bản (Edge Cases): Không chỉ có trường hợp "thanh toán thành công", lập trình viên phải xử lý rất nhiều tình huống phức tạp:
+
+Thẻ hết tiền/bị từ chối.
+
+Mất mạng giữa chừng khi đang giao dịch.
+
+Timeout (chờ phản hồi quá lâu).
+
+Tính bảo mật (Security): Yêu cầu cực cao về bảo mật dữ liệu. Phải đảm bảo mã hóa thông tin, tuân thủ các tiêu chuẩn an toàn (như không lưu mã CVC thẻ). Sai sót ở đây gây hậu quả nghiêm trọng.
+
+Tính toàn vẹn dữ liệu (Transaction): Phải xử lý logic trừ kho hàng song song với trừ tiền. Nếu trừ tiền thành công mà kho báo hết hàng thì phải hoàn tiền (Rollback) tự động.
+
+Tóm lại: So với việc "Tạo công việc" (5 điểm), tính năng này khó hơn gấp đôi, gấp ba về mặt kỹ thuật và rủi ro, nên 13 điểm là hợp lý.

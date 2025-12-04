@@ -1,0 +1,23 @@
+1. User Story
+
+"Là một người dùng, tôi muốn tạo công việc mới (bao gồm tiêu đề, mô tả, ngày hết hạn) để tôi có thể ghi nhớ và theo dõi những việc cần làm."
+
+2. Ước lượng Story Points
+
+5 Points (Mức độ phức tạp trung bình)
+
+3. Lý do giải thích (Justification) Tôi chọn con số 5 dựa trên các yếu tố công việc cụ thể sau đây:
+
+Về giao diện (Frontend): Cần thiết kế một Form nhập liệu gồm nhiều trường thông tin: Tiêu đề (text), Mô tả (textarea), Thời hạn (date picker), và Độ ưu tiên (dropdown). Cần làm cả nút "Lưu" và nút "Hủy".
+
+Về xử lý logic (Validation): Phải kiểm tra dữ liệu đầu vào (ví dụ: Tiêu đề không được để trống, Ngày hết hạn không được nhỏ hơn ngày hiện tại).
+
+Về cơ sở dữ liệu (Backend): Cần viết API để nhận dữ liệu từ Frontend và lưu trữ vào bảng Database (Create operation).
+
+So sánh tương quan:
+
+Nếu chỉ là "Sửa lỗi chính tả trên nút bấm" thì là 1 điểm.
+
+Nếu chỉ là "Hiển thị danh sách công việc" (chỉ đọc dữ liệu) thì là 2 hoặc 3 điểm.
+
+Tính năng này yêu cầu cả giao diện nhập liệu, kiểm tra lỗi và lưu xuống database nên 5 điểm là hợp lý cho một tính năng tiêu chuẩn (Standard Feature).
