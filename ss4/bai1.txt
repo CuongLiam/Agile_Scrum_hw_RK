@@ -1,0 +1,71 @@
+Kịch bản: Buổi họp Daily Scrum (15 phút)
+Bối cảnh:
+
+Dự án: Ứng dụng Mobile đặt đồ ăn.
+
+Thời điểm: 9:00 sáng.
+
+Thành viên:
+
+Bạn (Scrum Master - SM): Người điều phối.
+
+Dev A (Frontend): Phụ trách giao diện.
+
+Dev B (Backend): Phụ trách API/Server.
+
+Tester (QA): Phụ trách kiểm thử.
+
+1. Mở đầu (09:00 - 09:01)
+Bạn (SM): "Chào mọi người, đúng 9 giờ rồi, chúng ta bắt đầu nhé. Mời mọi người đứng dậy để tập trung nào. Mục tiêu hôm nay là check tiến độ Sprint và xem có ai gặp khó khăn gì không. Mời Dev A bắt đầu trước."
+
+💡 Ghi chú: SM phải đảm bảo bắt đầu đúng giờ, không chờ người đến muộn. Việc yêu cầu "đứng dậy" (Stand-up) giúp mọi người ngắn gọn, không lan man.
+
+2. Cập nhật tiến độ (09:01 - 09:10)
+Dev A (Frontend):
+
+Hôm qua: Tôi đã hoàn thành xong màn hình "Đăng nhập".
+
+Hôm nay: Tôi sẽ làm tiếp màn hình "Danh sách món ăn".
+
+Khó khăn: Không có.
+
+Bạn (SM): "Cảm ơn A. Mời Dev B."
+
+Dev B (Backend):
+
+Hôm qua: Tôi viết API cho chức năng "Tìm kiếm món ăn".
+
+Hôm nay: Tôi định viết tiếp API cho "Giỏ hàng".
+
+Khó khăn: À, hiện tại Server test đang bị lỗi kết nối, tôi không thể deploy code lên để Tester kiểm tra được. Tôi đang bị kẹt chỗ này từ sáng tới giờ.
+
+Bạn (SM): (Ghi chú ngay vào sổ) "Ok, vấn đề Server lỗi là một Blocker (Trở ngại) nghiêm trọng. Dev B, cậu có cần hỗ trợ từ team Hạ tầng (Infrastructure) không?"
+
+Dev B: "Có, tôi cần quyền truy cập admin để reset lại service."
+
+Bạn (SM): "Được rồi. Sau cuộc họp này tôi sẽ liên hệ ngay đội Hạ tầng để xử lý cho cậu. Chúng ta tiếp tục nhé. Mời Tester."
+
+💡 Ghi chú: Khi thấy khó khăn, SM không để Dev B ngồi sửa lỗi ngay trong cuộc họp (làm mất thời gian người khác). SM ghi nhận và cam kết giải quyết sau cuộc họp.
+
+Tester (QA):
+
+Hôm qua: Tôi viết Test case cho màn hình Đăng nhập.
+
+Hôm nay: Tôi định test màn hình Đăng nhập mà Dev A vừa làm xong.
+
+Khó khăn: Dev A ơi, cái nút 'Quên mật khẩu' trên bản thiết kế có màu xanh, sao cậu code thành màu đỏ? Chúng ta cần tranh luận lại về UX chỗ này...
+
+Dev A (Nhảy vào lời): "Màu đỏ nổi hơn chứ, hôm qua tôi thấy..."
+
+Bạn (SM): (Giơ tay ra hiệu dừng lại) "Xin lỗi hai bạn. Vấn đề màu sắc này có vẻ cần thảo luận chi tiết hơn, nếu nói ở đây sẽ lố giờ của mọi người. Tôi sẽ đưa vấn đề này vào Parking Lot (Danh sách chờ). Hai bạn hãy thảo luận riêng ngay sau buổi họp này nhé?"
+
+💡 Ghi chú: Đây là kỹ năng quan trọng nhất: Ngắt lời khi lạc đề. Cuộc họp Daily không phải để giải quyết vấn đề (Solve problem), mà là để thông báo vấn đề.
+
+3. Kết thúc (09:14 - 09:15)
+Bạn (SM): "Ok, cảm ơn mọi người. Tóm tắt lại:
+
+Tôi sẽ đi gặp đội Hạ tầng để sửa Server cho Dev B.
+
+Dev A và Tester sẽ ở lại 5 phút để chốt màu nút bấm.
+
+Tiến độ nhìn chung vẫn ổn. Chúc mọi người một ngày làm việc hiệu quả. Giải tán!"

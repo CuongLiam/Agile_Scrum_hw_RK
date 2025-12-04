@@ -1,0 +1,62 @@
+Lời giải chi tiết cho bài tập
+Bước 3: Giải thích thông tin trên Burndown Chart (Dựa trên số liệu đề bài)
+Theo dữ liệu bạn đưa ra:
+
+Ngày 1: 90 còn lại (Đã làm 10)
+
+Ngày 2: 80 còn lại (Đã làm thêm 10)
+
+...
+
+Ngày 5: 60 còn lại (Đã làm thêm 10)
+
+Phân tích biểu đồ:
+
+Đường Actual (Thực tế - Đỏ): Đang trùng khít hoặc đi song song với đường Expected (Lý tưởng - Xanh).
+
+Nhận định:
+
+Nhóm đang có tốc độ làm việc (Velocity) cực kỳ ổn định: 10 điểm/ngày.
+
+Kết luận: Nhóm đang đi đúng hướng (On Track). Nếu giữ vững tốc độ này, nhóm chắc chắn sẽ hoàn thành 100 điểm vào ngày thứ 10.
+
+Bước 4: Phân tích tình huống "Burndown Chart không giảm đều"
+Tình huống giả định:
+
+Vào Ngày 5, nhóm đáng lẽ phải hoàn thành được 60 điểm (tức là còn lại 40 điểm trên biểu đồ), nhưng thực tế nhóm mới chỉ hoàn thành được 40 điểm (tức là còn lại 60 điểm trên biểu đồ).
+
+1. Hình ảnh trên biểu đồ:
+
+Tại cột mốc Ngày 5 (Day 5).
+
+Điểm Expected (Xanh) đang ở mức thấp (ví dụ: mức 50 hoặc 40).
+
+Điểm Actual (Đỏ) đang nằm CAO HƠN điểm Expected (treo ở mức 60).
+
+Đường màu đỏ bị "phình" lên phía trên đường màu xanh.
+
+2. Ý nghĩa:
+
+Nhóm đang bị chậm tiến độ (Behind Schedule).
+
+Khối lượng công việc còn lại nhiều hơn dự kiến.
+
+3. Hành động của Scrum Master (Giải quyết vấn đề): Khi nhìn thấy đường đỏ nằm trên đường xanh ở giữa Sprint, bạn cần thực hiện các bước sau trong cuộc họp Daily Scrum:
+
+Tìm nguyên nhân (Inspect):
+
+Có thành viên nào bị ốm/nghỉ không?
+
+Có gặp lỗi kỹ thuật (Blocker) nào khó giải quyết không?
+
+Có User Story nào bị ước lượng sai (nghĩ là dễ nhưng làm thì khó) không?
+
+Có bị thêm việc (Scope Creep) từ bên ngoài vào không?
+
+Thích nghi (Adapt):
+
+Nếu do Blockers: Tập trung nguồn lực để gỡ lỗi đó ngay lập tức.
+
+Nếu do quá tải: Thương lượng lại với Product Owner. Có thể phải cắt bỏ bớt một số tính năng ít quan trọng (Low priority) ra khỏi Sprint này để đảm bảo hoàn thành các tính năng quan trọng nhất.
+
+Tuyệt đối không: Ép team làm việc overtime (tăng ca) quá mức, vì sẽ gây lỗi và giảm chất lượng lâu dài.

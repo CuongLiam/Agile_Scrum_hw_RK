@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Burn Down Chart</title>
+ 
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ChartJS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+  <div class="mx-auto bg-white shadow-xl p-6 rounded-2xl">
+    
+    <h1 class="text-3xl font-bold mb-4">Burn Down Chart</h1>
+
+    <!-- LAYOUT: TRÁI (INPUT) - PHẢI (CHART) -->
+    <div class="grid grid-cols-2 gap-6">
+      
+      <!-- CỘT TRÁI: INPUT FORMS -->
+      <div>
+        <!-- TÊN BIỂU ĐỒ -->
+        <div class="mb-3">
+          <label class="font-semibold block">Tên biểu đồ:</label>
+          <input id="chartTitle" type="text" value="Burn Down Chart"
+                 class="border p-1 rounded w-full mb-3" oninput="updateChart()" />
+        </div>
+
+        <!-- INPUT DAYS + POINTS -->
+        <div class="mb-3">
+          <label class="font-semibold">Tổng số ngày:</label>
+          <input id="totalDays" type="number" value="10"
+                 class="border p-1 rounded w-20 mb-3" />
+        </div>
+
+        <div class="mb-3">
+          <label class="font-semibold block">Tổng Story Points:</label>
+          <input id="totalPoints" type="number" value="100"
+                 class="border p-1 rounded w-32 mb-3" />
+        </div>
+
+        <!-- BUTTONS -->
+        <button onclick="generateInputs()"
+                class="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2 mb-2">
+          Tạo dữ liệu
+        </button>
+
+        <button onclick="generateExpected()"
+                class="bg-green-600 text-white px-4 py-2 rounded-lg mb-2">
+          Auto Expected
+        </button>
+
+        <button onclick="addActualDay()"
+                class="bg-orange-500 text-white px-4 py-2 rounded-lg mb-2">
+          + 1 ngày (Actual)
+        </button>
+
+        <button onclick="exportPDF()"
+                class="bg-gray-800 text-white px-4 py-2 rounded-lg mb-2">
+          Xuất PDF
+        </button>
+
+        <!-- INPUT TABLE SPLIT -->
+        <div class="grid grid-cols-2 gap-4 mt-6">
+          <div>
+            <h2 class="text-lg font-bold mb-2 text-blue-600">Expected (Xanh)</h2>
+            <div id="expectedForm" class="max-h-96 overflow-y-auto"></div>
+          </div>
+
+          <div>
+            <h2 class="text-lg font-bold mb-2 text-red-600">Actual (Đỏ)</h2>
+            <div id="actualForm" class="max-h-96 overflow-y-auto"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CỘT PHẢI: CHART -->
+      <div class="flex flex-col">
+        <h2 class="text-xl font-bold mb-4 text-purple-600">Biểu đồ Real-time</h2>
+        <canvas id="chart" width="700" height="500"></canvas>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  let chart;
+  let labels = [], expectedData = [], actualData = [];
+  let actualExtra = 0; // số ngày Actual được thêm
+
+  /* ------------------------
+      TẠO INPUT BAN ĐẦU
+  ------------------------ */
+  function generateInputs() {
+    const days = +document.getElementById("totalDays").value;
+
+    labels = [];
+    expectedData = [];
+    actualData = [];
+
+    let expHTML = "";
+    let actHTML = "";
+
+    for (let i = 0; i <= days; i++) {
+      labels.push("Day " + i);
+      expHTML += `Day ${i}: <input id="exp${i}" type="number" class='border p-1 m-1 w-24 rounded' oninput="updateChart()"><br>`;
+      actHTML += `Day ${i}: <input id="act${i}" type="number" class='border p-1 m-1 w-24 rounded' oninput="updateChart()"><br>`;
+    }
+
+    document.getElementById("expectedForm").innerHTML = expHTML;
+    document.getElementById("actualForm").innerHTML = actHTML;
+
+    actualExtra = 0; // reset số ngày thêm
+  }
+
+  /* ------------------------
+      AUTO EXPECTED LINE
+  ------------------------ */
+  function generateExpected() {
+    const days = +document.getElementById("totalDays").value;
+    const total = +document.getElementById("totalPoints").value;
+    const per = total / days;
+
+    for (let i = 0; i <= days; i++) {
+      document.getElementById(`exp${i}`).value =
+        Math.max(total - per * i, 0).toFixed(0);
+    }
+  }
+
+  /* ------------------------
+      THÊM 1 NGÀY ACTUAL
+  ------------------------ */
+  function addActualDay() {
+    actualExtra++;
+
+    const nextDay = +document.getElementById("totalDays").value + actualExtra;
+
+    // thêm label mới
+    labels.push("Day " + nextDay);
+
+    // thêm input mới (dùng insertAdjacentHTML để không xóa dữ liệu đã nhập)
+    document.getElementById("actualForm").insertAdjacentHTML('beforeend',
+      `Day ${nextDay}: <input id="act${nextDay}" type="number" class='border p-1 m-1 w-24 rounded' oninput="updateChart()"><br>`);
+
+    updateChart();
+  }
+
+  /* ------------------------
+      UPDATE + VẼ CHART
+  ------------------------ */
+  function updateChart() {
+    const days = +document.getElementById("totalDays").value;
+
+    expectedData = [];
+    actualData = [];
+
+    let maxAct = 0;
+
+    // expected
+    for (let i = 0; i <= days; i++) {
+      let v = document.getElementById(`exp${i}`)?.value;
+      expectedData.push(v ? +v : null);
+    }
+
+    // actual including extra days
+    for (let i = 0; i <= days + actualExtra; i++) {
+      let v = document.getElementById(`act${i}`)?.value;
+      if (v) maxAct = +v;
+      actualData.push(v ? +v : null);
+    }
+
+    const totalPoints = +document.getElementById("totalPoints").value;
+
+    if (maxAct > totalPoints) {
+      alert("❌ Tổng Actual không được vượt quá tổng Story Points!");
+      return;
+    }
+
+    drawChart();
+  }
+
+  function drawChart() {
+    const ctx = document.getElementById('chart').getContext('2d');
+    if (chart) chart.destroy();
+
+    // Tạo màu động cho Expected line: xanh khi khác, tím khi trùng với Actual
+    const expectedColors = expectedData.map((val, idx) => {
+      if (val !== null && actualData[idx] !== null && val === actualData[idx]) {
+        return 'rgba(128, 0, 128, 1)'; // Tím (purple) khi trùng
+      }
+      return 'rgba(0, 0, 255, 1)'; // Xanh bình thường
+    });
+
+    // Tạo màu động cho Actual line: đỏ khi khác, tím khi trùng với Expected
+    const actualColors = actualData.map((val, idx) => {
+      if (val !== null && expectedData[idx] !== null && val === expectedData[idx]) {
+        return 'rgba(128, 0, 128, 1)'; // Tím (purple) khi trùng
+      }
+      return 'rgba(255, 0, 0, 1)'; // Đỏ bình thường
+    });
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Expected',
+            borderColor: 'blue',
+            data: expectedData,
+            borderWidth: 3,
+            fill: false,
+            segment: {
+              borderColor: (ctx) => {
+                const idx = ctx.p0DataIndex;
+                return expectedColors[idx];
+              }
+            },
+            pointBackgroundColor: expectedColors,
+            pointBorderColor: expectedColors,
+            pointRadius: 4
+          },
+          {
+            label: 'Actual',
+            borderColor: 'red',
+            data: actualData,
+            borderWidth: 3,
+            fill: false,
+            segment: {
+              borderColor: (ctx) => {
+                const idx = ctx.p0DataIndex;
+                return actualColors[idx];
+              }
+            },
+            pointBackgroundColor: actualColors,
+            pointBorderColor: actualColors,
+            pointRadius: 4
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: document.getElementById('chartTitle')?.value || 'Burn Down Chart',
+            font: {
+              size: 18,
+              weight: 'bold'
+            }
+          }
+        }
+      }
+    });
+  }
+
+  /* ------------------------
+      XUẤT PDF
+  ------------------------ */
+  function exportPDF() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('l', 'mm', 'a4');
+
+    const chartTitle = document.getElementById('chartTitle')?.value || 'Burn Down Chart';
+    pdf.text(chartTitle, 10, 10);
+    pdf.addImage(chart.toBase64Image(), 'PNG', 10, 20, 270, 120);
+    pdf.save("burndown.pdf");
+  }
+
+  /* ------------------------
+      KHỞI TẠO DEFAULT
+  ------------------------ */
+  window.addEventListener('DOMContentLoaded', function() {
+    generateInputs();
+    generateExpected();
+    updateChart();
+  });
+</script>
+
+</body>
+</html>
