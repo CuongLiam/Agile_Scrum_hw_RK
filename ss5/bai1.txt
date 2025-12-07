@@ -1,0 +1,35 @@
+Bối cảnh
+Dự án: Ứng dụng Mua sắm Online.
+
+Tính năng được demo: Thanh toán qua thẻ tín dụng (Credit Card).
+
+Đoạn hội thoại Sprint Review
+1. Mở đầu (Product Owner - PO)PO (Huy): "Cảm ơn mọi người đã tham gia. Mục tiêu của Sprint này (Sprint Goal) là 'Hoàn thiện luồng thanh toán không tiền mặt'. Chúng tôi muốn giúp khách hàng có thể trả tiền ngay trên ứng dụng để giảm tỷ lệ bom hàng. Sau đây, mời bạn Dev sẽ demo tính năng này."
+
+2. Demo tính năng (Developer)Dev (Nam): "Tôi xin phép demo trực tiếp trên môi trường Staging.
+
+Giả sử tôi là khách hàng, tôi đã chọn mua một chiếc tai nghe.
+
+Tại bước thanh toán, tôi chọn phương thức mới là 'Thẻ tín dụng'.
+
+Tôi nhập số thẻ Visa test... ngày hết hạn... và mã CVV.
+
+Tôi bấm nút 'Thanh toán'.
+
+(Màn hình hiển thị vòng xoay loading khoảng 2 giây).
+
+Hệ thống thông báo: 'Giao dịch thành công' và tự động chuyển hướng về trang 'Lịch sử đơn hàng'. Email xác nhận cũng đã được gửi về hộp thư."
+
+3. Phản hồi (Stakeholder)Stakeholder (Chị Lan - Trưởng phòng CSKH): "Tính năng chạy rất mượt, tốc độ xử lý nhanh hơn tôi nghĩ. Tuy nhiên, tôi có một góp ý: Khi nãy cậu nhập đúng thì không sao, nhưng nếu khách hàng nhập sai mã thẻ thì sao? Hiện tại tôi thấy thông báo lỗi chỉ ghi là 'Lỗi thanh toán', hơi chung chung. Khách hàng sẽ gọi lên tổng đài phàn nàn nhiều đấy. Liệu chúng ta có thể hiển thị rõ là 'Sai số thẻ' hay 'Thẻ hết hạn' được không?"
+
+PO (Huy): "Cảm ơn chị Lan, một phản hồi rất thực tế. Tôi sẽ ghi nhận lại để đưa vào Product Backlog và ưu tiên xử lý trong Sprint tới."
+
+Phân tích bài làm
+Đoạn hội thoại trên đã đáp ứng đủ 3 yêu cầu:
+
+PO mở đầu: Nhắc lại Sprint Goal (Tại sao chúng ta làm điều này? -> Giảm tỷ lệ bom hàng).
+
+Dev Demo: Trình diễn trên phần mềm chạy thật (Working Software), không dùng slide PowerPoint hay bản vẽ thiết kế.
+
+Stakeholder phản hồi: Đưa ra feedback mang tính xây dựng dựa trên góc nhìn nghiệp vụ (CSKH lo lắng về việc hỗ trợ người dùng), thay vì chỉ khen hoặc chê cảm tính.
+
